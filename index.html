@@ -3,29 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Respect Her</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <h1>🌸 Respect Her — Know Your Limits</h1>
+    <div class="game">
 
-    <p>
-        Welcome to an educational game about respect,
-        safety, and responsible choices.
-    </p>
+        <h1>🌸 Respect Her — Know Your Limits</h1>
 
-    <h2>Scenario 1</h2>
+        <p>
+            Welcome to an educational game about respect,
+            safety, and responsible choices.
+        </p>
 
-    <p>
-        You see someone making unwanted comments toward a girl.
-        What would you do?
-    </p>
+        <h2>Scenario 1</h2>
 
-    <button onclick="choose('ignore')">Ignore it</button>
-    <button onclick="choose('help')">Support her</button>
-    <button onclick="choose('report')">Tell a responsible person</button>
+        <p>
+            You see someone making unwanted comments toward a girl.
+            What would you do?
+        </p>
 
-    <p id="result"></p>
+        <button onclick="choose('ignore')">
+            Ignore it
+        </button>
+
+        <button onclick="choose('help')">
+            Support her
+        </button>
+
+        <button onclick="choose('report')">
+            Tell a responsible person
+        </button>
+
+        <p id="result"></p>
+
+    </div>
 
     <script>
         function choose(choice) {
@@ -34,10 +50,12 @@
             if (choice === "ignore") {
                 result.textContent =
                     "Think again. Speaking up safely can help protect someone.";
-            } else if (choice === "help") {
+            } 
+            else if (choice === "help") {
                 result.textContent =
                     "Good choice! Respect and kindness matter.";
-            } else {
+            } 
+            else {
                 result.textContent =
                     "Good choice! Getting responsible help is a safe response.";
             }
