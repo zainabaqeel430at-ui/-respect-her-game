@@ -3,64 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Respect Her</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="game">
+<div class="game">
 
-        <h1>🌸 Respect Her — Know Your Limits</h1>
+    <h1>🌸 Respect Her</h1>
+    <p>Make the right choice. Learn the lesson.</p>
 
-        <p>
-            Welcome to an educational game about respect,
-            safety, and responsible choices.
-        </p>
-
-        <h2>Scenario 1</h2>
-
-        <p>
-            You see someone making unwanted comments toward a girl.
-            What would you do?
-        </p>
-
-        <button onclick="choose('ignore')">
-            Ignore it
-        </button>
-
-        <button onclick="choose('help')">
-            Support her
-        </button>
-
-        <button onclick="choose('report')">
-            Tell a responsible person
-        </button>
-
-        <p id="result"></p>
-
+    <div class="stats">
+        ⭐ Score: <span id="score">0</span>
+        <br>
+        ❤️ Respect: <span id="respect">100</span>%
     </div>
 
-    <script>
-        function choose(choice) {
-            const result = document.getElementById("result");
+    <h2 id="level">Level 1</h2>
 
-            if (choice === "ignore") {
-                result.textContent =
-                    "Think again. Speaking up safely can help protect someone.";
-            } 
-            else if (choice === "help") {
-                result.textContent =
-                    "Good choice! Respect and kindness matter.";
-            } 
-            else {
-                result.textContent =
-                    "Good choice! Getting responsible help is a safe response.";
-            }
-        }
-    </script>
+    <div class="story-box">
+        <p id="story"></p>
+    </div>
+
+    <div id="choices"></div>
+
+    <div id="result"></div>
+
+    <button id="next" onclick="nextLevel()" style="display:none;">
+        Next Level ➜
+    </button>
+
+</div>
+
+<script>
+
+const levels = [
+
+    {
+        story: "You see someone making unwanted comments toward a girl. What is the safest response?",
+        choices: [
+            "Laugh and join in",
+            "Ignore everything",
+            "Get help from a responsible person"
+        ],
+        correct: 2,
+        lesson: "🌟 Good choice! Getting responsible help can support someone's safety.",
+        points: 10
+    },
+
+    {
+        story: "A friend wants to share someone's private photo without permission. What should you do?",
+        choices: [
+            "Share it",
+            "Ask them not to share it",
+            "Send it to another friend"
+        ],
+        correct: 1,
+        lesson: "🔒 Respecting someone's privacy and permission is important.",
+        points: 10
+    },
+
+    {
+        story: "Someone is being treated disrespectfully. What can you do?",
+        choices: [
+            "Join the disrespect",
+            "Help safely or contact a trusted adult",
+            "Record it and share it online"
+        ],
+        correct: 1,
+        lesson: "❤️ Kindness, courage and responsibility can make situations safer.",
+        points: 10
+    }
+
+];
+
+let currentLevel = 0;
+let score = 0;
+let respect = 100;
+
+function showLevel() {
+
+    const level = levels[currentLevel];
+
+    document.getElementById("level").textContent =
+        "Level " + (currentLevel + 1);
+
+    document.getElementById("story").textContent =
+        level.story;
+
+    document.getElementById("result").textContent = "";
+
+    document.getElementById("next").style.display = "none";
+
+    const choices = document.getElementById("choices");
+
+    choices.innerHTML = "";
+
+    level.choices.forEach((choice, index) => {
+
+        const button = document.createElement("button");
+
+        button.textContent = choice;
+
+        button.onclick = function() {
+            chooseAnswer(index);
+        };
+
+        choices.appendChild(button);
+
+    });
+}
+
+function chooseAnswer(answer) {
+
+    const level = levels[currentLevel];
+
+    const buttons =
+        document.querySelectorAll("#choices button");
+
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+
+    if (answer === level.correct) {
+
+        score += level.points;
+
+        document.getElementById("result").textContent =
+            level.lesson;
+
+    } else {
+
+        respect -= 20;
+
+        document.getElementById("result").textContent =
+            "💡 Think again. Choose actions that protect dignity, privacy and safety.";
+    }
+
+    document.getElementById("score").textContent = score;
+    document.getElementById("respect").textContent = respect;
+
+    document.getElementById("next").style.display = "block";
+}
+
+function nextLevel() {
+
+    currentLevel++;
+
+    if (currentLevel < levels.length) {
+
+        showLevel();
+
+    } else {
+
+        finishGame();
+    }
+}
+
+function finishGame() {
+
+    let message;
+
+    if (score === 30) {
+        message = "🏆 Excellent! You made respectful and responsible choices.";
+    } else if (score >= 20) {
+        message = "🌟 Great job! You learned important lessons about respect.";
+    } else {
+        message = "💡 Keep learning. Every responsible choice matters.";
+    }
+
+    document.querySelector(".game").innerHTML = `
+        <h1>🏆 Game Complete!</h1>
+
+        <h2>⭐ Final Score: ${score}/30</h2>
+
+        <h2>❤️ Respect: ${respect}%</h2>
+
+        <p>${message}</p>
+
+        <p>
+            Remember: respect, privacy, dignity and safety
+            matter for everyone.
+        </p>
+
+        <button onclick="location.reload()">
+            🔄 Play Again
+        </button>
+    `;
+}
+
+showLevel();
+
+</script>
 
 </body>
 </html>
