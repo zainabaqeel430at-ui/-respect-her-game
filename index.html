@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Respect Her</title>
+    <title>Respect Her — Know Your Limits</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -39,7 +39,6 @@
 <script>
 
 const levels = [
-
     {
         story: "You see someone making unwanted comments toward a girl. What is the safest response?",
         choices: [
@@ -48,8 +47,7 @@ const levels = [
             "Get help from a responsible person"
         ],
         correct: 2,
-        lesson: "🌟 Good choice! Getting responsible help can support someone's safety.",
-        points: 10
+        lesson: "🌟 Good choice! Getting responsible help can support someone's safety."
     },
 
     {
@@ -60,8 +58,7 @@ const levels = [
             "Send it to another friend"
         ],
         correct: 1,
-        lesson: "🔒 Respecting someone's privacy and permission is important.",
-        points: 10
+        lesson: "🔒 Good choice! Respecting someone's privacy and permission is important."
     },
 
     {
@@ -72,10 +69,8 @@ const levels = [
             "Record it and share it online"
         ],
         correct: 1,
-        lesson: "❤️ Kindness, courage and responsibility can make situations safer.",
-        points: 10
+        lesson: "❤️ Good choice! Kindness, courage and responsibility can help create a safer environment."
     }
-
 ];
 
 let currentLevel = 0;
@@ -111,7 +106,6 @@ function showLevel() {
         };
 
         choices.appendChild(button);
-
     });
 }
 
@@ -128,20 +122,21 @@ function chooseAnswer(answer) {
 
     if (answer === level.correct) {
 
-        score += level.points;
+        score += 10;
 
         document.getElementById("result").textContent =
             level.lesson;
 
     } else {
 
-        respect -= 20;
+        respect = Math.max(0, respect - 20);
 
         document.getElementById("result").textContent =
-            "💡 Think again. Choose actions that protect dignity, privacy and safety.";
+            "💡 Think again. Choose an action that protects dignity, privacy and safety.";
     }
 
     document.getElementById("score").textContent = score;
+
     document.getElementById("respect").textContent = respect;
 
     document.getElementById("next").style.display = "block";
@@ -166,11 +161,14 @@ function finishGame() {
     let message;
 
     if (score === 30) {
-        message = "🏆 Excellent! You made respectful and responsible choices.";
+        message =
+            "🏆 Excellent! You made respectful and responsible choices.";
     } else if (score >= 20) {
-        message = "🌟 Great job! You learned important lessons about respect.";
+        message =
+            "🌟 Great job! You learned important lessons about respect.";
     } else {
-        message = "💡 Keep learning. Every responsible choice matters.";
+        message =
+            "💡 Keep learning. Every responsible choice matters.";
     }
 
     document.querySelector(".game").innerHTML = `
